@@ -6,10 +6,6 @@ The [victortodoran/docker-magento](https://github.com/victortodoran/docker-magen
 
 Under no circumstance do NOT use this in production. This offers a quick way to start development with Magento2 locally.
 
-## Recognition
-
-Shout-out to @lillik and @marius-grad who laid the first bricks of this repo.
-
 ## Requirements
 
 This project requires Docker and Docker Compose installed on the machine. Please follow the Docker installation steps
