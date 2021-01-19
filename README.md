@@ -29,9 +29,9 @@ Please follow the next steps:
 
 7. Add the next text in hosts file of your OS system:
 
-`172.20.0.3 sandbox.local`
+`172.20.0.3 magento.loc`
 
-8. Open the browser and type the next link: http://sandbox.local/
+8. Open the browser and type the next link: http://magento.loc/
 
 ## Network IPs ##
 | Container | IP |
@@ -40,13 +40,11 @@ Please follow the next steps:
 |M2 PHP|172.20.0.4|
 |M2 MySQl|172.20.0.5|
 |M2 Redis|172.20.0.6|
-|M2 Mailcatcher|172.20.0.8|
-|M2 Elaticsearch01|172.20.0.9|
+|M2 MailCatcher|172.20.0.8|
+|M2 ElasticSearch|172.20.0.9|
 
 ## Enter magento(PHP) container to run commands
-`docker-compose exec -u www-data -it sandbox-php bash`
+`docker-compose exec -u www-data -it magento-php bash`
 
 ## Configure Redis for FPC and Session
 `@see env.php.dist`
-
-
