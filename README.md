@@ -52,7 +52,7 @@ Please follow the next steps:
 
 ## Enter magento(PHP) container to run commands
 
-`docker-compose exec -u www-data -it magento-php bash`
+`docker-compose exec --user www-data phpfpm bash`
 
 ## Configure Redis for FPC and Session
 
