@@ -1,10 +1,19 @@
 .idea
+.env
 
 html/*
 !html/.gitkeep
 
-.composer/cache
-.composer/auth.json
+html/app/*
+html/app/etc/*
+
+!html/app
+!html/app/etc
+!html/app/etc/env.php.dist
+
+.docker/composer/*
+!.docker/composer/.htaccess
+!.docker/composer/auth.json.dist
 
 .docker/data/*
 !.docker/data/mysql/.gitkeep
