@@ -6,7 +6,7 @@ html/*
 
 docker/composer/*
 !docker/composer/.htaccess
-!docker/composer/auth.json.dist
+!docker/composer/auth.json.sample
 
 docker/data/*
 !docker/data/mysql/.gitkeep
