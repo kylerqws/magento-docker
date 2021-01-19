@@ -5,14 +5,13 @@ echo "Initializing setup..."
 # shellcheck disable=SC2164
 cd /var/www/html
 
-rm -rf .keep
-
 if [ -f ./app/etc/config.php ] || [ -f ./app/etc/env.php ]; then
   echo "It appears Magento is already installed (app/etc/config.php or app/etc/env.php exist). Exiting setup..."
   exit
 fi
 
-if [ ! -f /var/www/html/composer.json ]; then
+if [ ! -f /var/www/html/composer.json ] || [ ! -f /var/www/html/composer.lock ]; then
+  echo "Installing Magento 2 main packages..."
   # shellcheck disable=SC2086
   /usr/local/bin/php /usr/local/bin/composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=$M2SETUP_VERSION .
 fi
@@ -20,8 +19,7 @@ fi
 chmod +x ./bin/magento
 
 if [ "$M2SETUP_USE_SAMPLE_DATA" = true ]; then
-  echo "Installing composer dependencies..."
-  /usr/local/bin/php /usr/local/bin/composer update
+  echo "Installing Magento 2 sample data..."
   /usr/local/bin/php ./bin/magento sampledata:deploy
   M2SETUP_USE_SAMPLE_DATA_STRING="--use-sample-data"
 else
