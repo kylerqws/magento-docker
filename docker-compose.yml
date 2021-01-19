@@ -1,10 +1,11 @@
-version: "2"
+version: "3"
 services:
+
   app:
     build:
       context: .docker/nginx/
     image: vulpea/magento2-nginx
-    container_name: sandbox-nginx
+    container_name: magento-nginx
     depends_on:
       - db
       - phpfpm
@@ -12,7 +13,7 @@ services:
       - db
       - phpfpm
       - redis
-      - elasticsearch1
+      - elastic
     volumes: &appvolumes
       - ./html:/var/www/html
       - ./.composer:/var/www/.composer
@@ -26,19 +27,19 @@ services:
         ipv4_address: 172.20.0.3
     environment:
       - XDEBUG_CONFIG=remote_host=172.20.0.1
-      - PHP_IDE_CONFIG=serverName=sandbox.local
+      - PHP_IDE_CONFIG=serverName=magento.loc
       - XDEBUG_CONFIG=xdebug.idekey=PHPSTORM
 
   phpfpm:
     build:
       context: .docker/php/
     image: vulpea/magento2-php
-    container_name: sandbox-php
+    container_name: magento-php
     depends_on:
       - db
     links:
       - db
-      - elasticsearch1
+      - elastic
     volumes: *appvolumes
     ports:
       - 9000
@@ -48,12 +49,12 @@ services:
     env_file: .env/setup.env
     environment:
       - XDEBUG_CONFIG=remote_host=172.20.0.1
-      - PHP_IDE_CONFIG=serverName=sandbox.local
+      - PHP_IDE_CONFIG=serverName=magento.loc
       - XDEBUG_CONFIG=xdebug.idekey=PHPSTORM
 
   db:
     image: mysql:5.7
-    container_name: sandbox-db
+    container_name: magento-db
     volumes:
       - ./.docker/dbdata/mysql:/var/lib/mysql
     ports:
@@ -65,7 +66,7 @@ services:
 
   setup:
     image: vulpea/magento2-php
-    container_name: sandbox-setup
+    container_name: magento-setup
     command: /usr/local/bin/mage-setup
     links:
       - db
@@ -74,7 +75,7 @@ services:
 
   redis:
     image: redis:3.0.7
-    container_name: sandbox-redis
+    container_name: magento-redis
     ports:
       - 6379
       - 1985
@@ -83,38 +84,38 @@ services:
         ipv4_address: 172.20.0.6
 
   mailcatcher:
-     build: ./.docker/mailcatcher
-     container_name: vulpea_mailcatcher_os
-     image: vulpea/mailcatcher:0.6.4
-     ports:
-       - 1080
-       - 1025
-     networks:
-       default:
-         ipv4_address: 172.20.0.8
+    build: ./.docker/mailcatcher
+    container_name: vulpea_mailcatcher_os
+    image: vulpea/mailcatcher:0.6.4
+    ports:
+      - 1080
+      - 1025
+    networks:
+      default:
+        ipv4_address: 172.20.0.8
 
-  elasticsearch1:
-      image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
-      container_name: sandbox-elastic1
-      environment:
-        - node.name=elasticsearch1
-        - cluster.name=magento-cluster
-        - bootstrap.memory_lock=true
-        - discovery.type=single-node
-        - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
-      ulimits:
-        memlock:
-          soft: -1
-          hard: -1
-      volumes:
-        - esdata1:/usr/share/elasticsearch/data
-      ports:
-        - 9200
-      networks:
-         default:
-           ipv4_address: 172.20.0.9
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+    container_name: magento-elastic
+    environment:
+      - node.name=elastic
+      - cluster.name=magento-cluster
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200
+    networks:
+      default:
+        ipv4_address: 172.20.0.9
 volumes:
-  esdata1:
+  esdata:
     driver: local
 
 networks:
@@ -124,5 +125,3 @@ networks:
       config:
         - subnet: 172.20.0.0/16
           gateway: 172.20.0.1
-
-
