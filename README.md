@@ -46,14 +46,9 @@ Please follow the next steps:
 |M2 NGINX|172.20.0.3|
 |M2 PHP|172.20.0.4|
 |M2 MySQl|172.20.0.5|
-|M2 Redis|172.20.0.6|
 |M2 MailCatcher|172.20.0.8|
 |M2 ElasticSearch|172.20.0.9|
 
 ## Enter magento(PHP) container to run commands
 
 `docker-compose exec --user www-data phpfpm bash`
-
-## Configure Redis for FPC and Session
-
-`@see env.php.sample`

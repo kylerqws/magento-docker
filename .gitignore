@@ -5,7 +5,6 @@ html/*
 !html/.gitkeep
 
 docker/composer/*
-!docker/composer/.htaccess
 !docker/composer/auth.json.sample
 
 docker/data/*

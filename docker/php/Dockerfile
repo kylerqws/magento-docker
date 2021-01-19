@@ -37,7 +37,7 @@ RUN pecl install -o -f xdebug-2.6.1 && docker-php-ext-enable xdebug
 # install Mailcatcher
 RUN apt-get update
 
-RUN apt-get -y install build-essential ruby-full libsqlite3-dev &&\
+RUN apt-get -y install build-essential ruby-full libsqlite3-dev && \
     gem install mailcatcher --no-rdoc --no-ri
 
 # install nano
