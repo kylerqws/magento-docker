@@ -11,10 +11,10 @@ html/app/etc/*
 !html/app/etc
 !html/app/etc/env.php.dist
 
-.docker/composer/*
-!.docker/composer/.htaccess
-!.docker/composer/auth.json.dist
+docker/composer/*
+!docker/composer/.htaccess
+!docker/composer/auth.json.dist
 
-.docker/data/*
-!.docker/data/mysql/.gitkeep
-!.docker/data/elasticsearch/.gitkeep
+docker/data/*
+!docker/data/mysql/.gitkeep
+!docker/data/elasticsearch/.gitkeep
