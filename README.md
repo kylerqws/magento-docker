@@ -21,26 +21,23 @@ from https://docs.docker.com/compose/install/.
 Please follow the next steps:
 
 1. Download or clone this project in the directory you want to have the project installed.
-2. Create a new file `auth.json` in directory .composer and add your [repo.magento.com](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html) credentials
-
-            "username": "YOUR_USERNAME_USED_ON_REPO_MAGENTO",
-            "password": "YOUR_PASSWORD_USED_ON_REPO_MAGENTO"
-
-3. Open a terminal that allows you to run Docker Compose CLI application.
-4. Change directory in terminal to the directory where the step 1 was performed.
-5. Build the docker images with next command:
+2. Open a terminal that allows you to run Docker Compose CLI application.
+3. Change directory in terminal to the directory where the step 1 was performed.
+4. Build the docker images with next command:
 
 `docker-compose up -d --build app`
 
-6. Download and install Magento CE 2 with next command
+5. Download and install Magento CE 2 with next command
 
 `docker-compose run setup`
 
-7. Add the next text in hosts file of your OS system:
+6. Add the next text in hosts file of your OS system:
 
 `172.20.0.3 magento.loc`
 
-8. Open the browser and type the next link: http://magento.loc/
+7. Open the browser and type the next link: http://magento.loc/
+
+8. Open MailCatcher link: http://172.20.0.8:1080/
 
 ## Network IPs ##
 

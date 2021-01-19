@@ -2,19 +2,20 @@ version: "3"
 services:
 
   app:
-    build: ./docker/nginx/
+    build: ./docker/image/nginx/
     image: vulpea/magento2-nginx
     container_name: $COMPOSE_PROJECT_NAME-nginx
     depends_on:
       - db
       - phpfpm
     links:
-      - db
       - phpfpm
+      - db
       - elastic
+      - mailcatcher
+      - setup
     volumes: &appvolumes
       - ./html:/var/www/html
-      - ./docker/composer:/var/www/.composer
       - $HOME/.ssh/id_rsa:/root/.ssh/id_rsa
       - $HOME/.ssh/id_rsa:/var/www/.ssh/id_rsa
       - $HOME/.ssh/known_hosts:/var/www/.ssh/known_hosts
@@ -29,7 +30,7 @@ services:
       - XDEBUG_CONFIG=xdebug.idekey=PHPSTORM
 
   phpfpm:
-    build: ./docker/php/
+    build: ./docker/image/php/
     image: vulpea/magento2-php
     container_name: $COMPOSE_PROJECT_NAME-php
     depends_on:
@@ -43,7 +44,7 @@ services:
     networks:
       default:
         ipv4_address: 172.20.0.4
-    env_file: ./docker/env/setup.env
+    env_file: ./docker/image/php/.env
     environment:
       - XDEBUG_CONFIG=remote_host=172.20.0.1
       - PHP_IDE_CONFIG=serverName=magento.loc
@@ -59,27 +60,7 @@ services:
     networks:
       default:
         ipv4_address: 172.20.0.5
-    env_file: ./docker/env/mysql.env
-
-  setup:
-    image: vulpea/magento2-php
-    container_name: $COMPOSE_PROJECT_NAME-setup
-    command: /usr/local/bin/mage-setup
-    links:
-      - db
-    volumes: *appvolumes
-    env_file: ./docker/env/setup.env
-
-  mailcatcher:
-    build: ./docker/mailcatcher
-    image: vulpea/mailcatcher:0.6.4
-    container_name: $COMPOSE_PROJECT_NAME-mailcatcher
-    ports:
-      - 1080
-      - 1025
-    networks:
-      default:
-        ipv4_address: 172.20.0.8
+    env_file: ./docker/image/db/.env
 
   elastic:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
@@ -101,6 +82,26 @@ services:
     networks:
       default:
         ipv4_address: 172.20.0.9
+
+  mailcatcher:
+    build: ./docker/image/mailcatcher
+    image: vulpea/mailcatcher:0.6.4
+    container_name: $COMPOSE_PROJECT_NAME-mailcatcher
+    ports:
+      - 1080
+      - 1025
+    networks:
+      default:
+        ipv4_address: 172.20.0.8
+
+  setup:
+    image: vulpea/magento2-php
+    container_name: $COMPOSE_PROJECT_NAME-setup
+    command: /usr/local/bin/mage-setup
+    links:
+      - db
+    volumes: *appvolumes
+    env_file: ./docker/image/php/.env
 
 networks:
   default:

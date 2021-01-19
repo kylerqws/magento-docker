@@ -17,8 +17,6 @@ if [ ! -f /var/www/html/composer.json ]; then
   /usr/local/bin/php /usr/local/bin/composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=$M2SETUP_VERSION .
 fi
 
-ln -s /var/www/.composer ./var/composer_home
-
 chmod +x ./bin/magento
 
 if [ "$M2SETUP_USE_SAMPLE_DATA" = true ]; then

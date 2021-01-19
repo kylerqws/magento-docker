@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+echo "*/1 * * * * su -c \"/usr/local/bin/php /var/www/html/update/cron.php\" -s /bin/sh www-data > /proc/1/fd/2 2>&1" | crontab - \
+  && (crontab -l ; echo "*/1 * * * * su -c \"/usr/local/bin/php /var/www/html/bin/magento cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1") | crontab - \
+  && (crontab -l ; echo "*/1 * * * * su -c \"/usr/local/bin/php /var/www/html/bin/magento setup:cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1") | crontab -
+
+# start the cron service
+/usr/sbin/cron
