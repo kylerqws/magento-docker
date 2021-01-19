@@ -1,5 +1,5 @@
 FROM ruby:2.2
-MAINTAINER Victor Todoran <victorvulpeatodoran@gmail.com>
+MAINTAINER Victor Todoran "victorvulpeatodoran@gmail.com"
 
 RUN echo "deb [check-valid-until=no] http://archive.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list
 RUN sed -i '/deb http:\/\/deb.debian.org\/debian jessie-updates main/d' /etc/apt/sources.list
@@ -16,10 +16,7 @@ RUN gem install mailcatcher -v 0.6.4 --no-ri --no-rdoc
 RUN apt-get remove --purge -y build-essential libsqlite3-dev && apt-get autoclean && apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# smtp port
 EXPOSE 1025
-
-# webserver port
 EXPOSE 1080
 
 CMD ["mailcatcher", "-f", "--ip=0.0.0.0"]

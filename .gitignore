@@ -1,14 +1,13 @@
 .idea
 
-html
-html.old
+html/*
+!html/.gitkeep
 
-.composer/cache/
+.composer/cache
 .composer/auth.json
 
-dbdata/mysql
-nbproject/private/
-
 .docker/dbdata/*
-.docker/elasticsearch/elasticsearch/data/*
-.docker/elasticsearch/elasticsearch/logs/*
+!.docker/dbdata/.gitkeep
+
+.docker/esdata/*
+!.docker/esdata/.gitkeep

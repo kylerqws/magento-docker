@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
 echo "Initializing setup..."
 
+# shellcheck disable=SC2164
 cd /var/www/html
 
 rm -rf .keep
@@ -10,6 +12,7 @@ if [ -f ./app/etc/config.php ] || [ -f ./app/etc/env.php ]; then
   exit
 fi
 
+# shellcheck disable=SC2086
 /usr/local/bin/php /usr/local/bin/composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=$M2SETUP_VERSION .
   
 ln -s /var/www/.composer ./var/composer_home
@@ -26,6 +29,7 @@ else
 fi
 
 echo "Running Magento 2 setup script..."
+# shellcheck disable=SC2086
 /usr/local/bin/php ./bin/magento setup:install \
   --db-host=$M2SETUP_DB_HOST \
   --db-name=$M2SETUP_DB_NAME \

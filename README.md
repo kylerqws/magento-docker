@@ -1,18 +1,24 @@
 ## Disclaimer
-Under no circumstance do NOT use this in production. 
-This offers a quick way to start development with Magento2 locally. 
+
+Under no circumstance do NOT use this in production. This offers a quick way to start development with Magento2 locally.
 
 ## Recognition
+
 Shout-out to @lillik and @marius-grad who laid the first bricks of this repo.
 
 ## Requirements
-This project requires Docker and Docker Compose installed on the machine. Please follow the Docker installation steps from https://docs.docker.com/engine/installation/ and docker compose installation steps from https://docs.docker.com/compose/install/.
+
+This project requires Docker and Docker Compose installed on the machine. Please follow the Docker installation steps
+from https://docs.docker.com/engine/installation/ and docker compose installation steps
+from https://docs.docker.com/compose/install/.
 
 ## Installation
 
 Please follow the next steps:
+
 1. Download or clone this project in the directory you want to have the project installed.
-2. Create a new file `auth.json` in directory .composer and add your [repo.magento.com](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html) credentials
+2. Create a new file `auth.json` in directory .composer and add
+   your [repo.magento.com](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html) credentials
 
             "username": "YOUR_USERNAME_USED_ON_REPO_MAGENTO",
             "password": "YOUR_PASSWORD_USED_ON_REPO_MAGENTO"
@@ -34,6 +40,7 @@ Please follow the next steps:
 8. Open the browser and type the next link: http://magento.loc/
 
 ## Network IPs ##
+
 | Container | IP |
 |--------|--------|
 |M2 NGINX|172.20.0.3|
@@ -44,7 +51,9 @@ Please follow the next steps:
 |M2 ElasticSearch|172.20.0.9|
 
 ## Enter magento(PHP) container to run commands
+
 `docker-compose exec -u www-data -it magento-php bash`
 
 ## Configure Redis for FPC and Session
+
 `@see env.php.dist`
