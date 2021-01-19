@@ -27,17 +27,13 @@ Please follow the next steps:
 
 `docker-compose up -d --build app`
 
-5. Download and install Magento CE 2 with next command
-
-`docker-compose run setup`
-
-6. Add the next text in hosts file of your OS system:
+5. Add the next text in hosts file of your OS system:
 
 `172.20.0.3 magento.loc`
 
-7. Open the browser and type the next link: http://magento.loc/
+6. Open the browser and type the next link: http://magento.loc/
 
-8. Open MailCatcher link: http://172.20.0.8:1080/
+7. Open MailCatcher link: http://172.20.0.8:1080/
 
 ## Network IPs ##
 
