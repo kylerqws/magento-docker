@@ -56,4 +56,4 @@ Please follow the next steps:
 
 ## Configure Redis for FPC and Session
 
-`@see env.php.dist`
+`@see env.php.sample`
