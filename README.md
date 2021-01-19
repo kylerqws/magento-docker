@@ -1,3 +1,7 @@
+## Note
+
+The [victortodoran/docker-magento](https://github.com/victortodoran/docker-magento) repository was used as a basis.
+
 ## Disclaimer
 
 Under no circumstance do NOT use this in production. This offers a quick way to start development with Magento2 locally.
@@ -17,8 +21,7 @@ from https://docs.docker.com/compose/install/.
 Please follow the next steps:
 
 1. Download or clone this project in the directory you want to have the project installed.
-2. Create a new file `auth.json` in directory .composer and add
-   your [repo.magento.com](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html) credentials
+2. Create a new file `auth.json` in directory .composer and add your [repo.magento.com](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html) credentials
 
             "username": "YOUR_USERNAME_USED_ON_REPO_MAGENTO",
             "password": "YOUR_PASSWORD_USED_ON_REPO_MAGENTO"
