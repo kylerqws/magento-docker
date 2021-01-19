@@ -6,8 +6,6 @@ html/*
 .composer/cache
 .composer/auth.json
 
-.docker/dbdata/*
-!.docker/dbdata/.gitkeep
-
-.docker/esdata/*
-!.docker/esdata/.gitkeep
+.docker/data/*
+!.docker/data/mysql/.gitkeep
+!.docker/data/elasticsearch/.gitkeep

@@ -56,7 +56,7 @@ services:
     image: mysql:5.7
     container_name: magento-db
     volumes:
-      - ./.docker/dbdata/mysql:/var/lib/mysql
+      - ./.docker/data/mysql:/var/lib/mysql
     ports:
       - 3306
     networks:
@@ -108,7 +108,7 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - ./.docker/esdata/elasticsearch:/usr/share/elasticsearch/data
+      - ./.docker/data/elasticsearch:/usr/share/elasticsearch/data
     ports:
       - 9200
     networks:
