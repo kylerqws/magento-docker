@@ -29,7 +29,7 @@ RUN pecl channel-update pecl.php.net
 RUN pecl install mcrypt-1.0.1
 
 RUN curl -sS https://getcomposer.org/installer | \
-  php -- --install-dir=/usr/local/bin --filename=composer --prefer-dist
+  php -- --install-dir=/usr/local/bin --filename=composer --prefer-dist --version=1.10.19
 
 # install Xdebug
 RUN pecl install -o -f xdebug-2.6.1 && docker-php-ext-enable xdebug
