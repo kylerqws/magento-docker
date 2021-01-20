@@ -1,9 +1,16 @@
 .idea
-/.env
+.env
 
 html/*
 !html/.gitkeep
 
 docker/data/*
+!docker/data
+
+docker/data/mysql/*
 !docker/data/mysql/.gitkeep
+
+docker/data/elasticsearch/*
 !docker/data/elasticsearch/.gitkeep
+
+docker/image/php/auth.json
