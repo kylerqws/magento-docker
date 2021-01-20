@@ -6,10 +6,9 @@ ENV PHP_PORT 9000
 
 COPY ./conf/nginx.conf /etc/nginx/
 COPY ./conf/default.conf /etc/nginx/conf.d/
-COPY ./bin/start.sh /usr/local/bin/start.sh
+COPY ./bin/start /usr/local/bin/start
 
 WORKDIR /var/www/html
-
 EXPOSE 80
 
-CMD ["/usr/local/bin/start.sh"]
+CMD ["/usr/local/bin/start"]
