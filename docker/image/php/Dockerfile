@@ -28,6 +28,7 @@ RUN docker-php-ext-install \
 RUN pecl channel-update pecl.php.net
 RUN pecl install mcrypt-1.0.1
 
+ENV COMPOSER_HOME /var/www/html/var/composer_home
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/local/bin --filename=composer --prefer-dist --version=1.10.19
 
