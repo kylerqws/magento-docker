@@ -17,10 +17,10 @@ if [ ! -f ./composer.json ] || [ ! -f ./composer.lock ]; then
   # shellcheck disable=SC2086
   /usr/local/bin/php /usr/local/bin/composer create-project --repository-url=https://repo.magento.com/ \
     magento/project-community-edition=$M2SETUP_VERSION .
-
-  echo "Updating Magento 2 project..."
-  /usr/local/bin/php /usr/local/bin/composer update
 fi
+
+echo "Updating Magento 2 project..."
+/usr/local/bin/php /usr/local/bin/composer update
 
 /usr/local/bin/php -r "file_put_contents(
   '/var/www/html/var/composer_home/auth.json',
