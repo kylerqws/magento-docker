@@ -10,20 +10,25 @@ if [ -f ./app/etc/config.php ] || [ -f ./app/etc/env.php ]; then
   exit
 fi
 
-if [ ! -f /var/www/html/composer.json ] || [ ! -f /var/www/html/composer.lock ]; then
-  echo "Installing Magento 2 main packages..."
+if [ ! -f ./composer.json ] || [ ! -f ./composer.lock ]; then
+  rm -rf ./.* ./*
+
+  echo "Creating Magento 2 project..."
   # shellcheck disable=SC2086
-  /usr/local/bin/php /usr/local/bin/composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=$M2SETUP_VERSION .
+  /usr/local/bin/php /usr/local/bin/composer create-project --repository-url=https://repo.magento.com/ \
+    magento/project-community-edition=$M2SETUP_VERSION .
+
+  echo "Updating Magento 2 project..."
+  /usr/local/bin/php /usr/local/bin/composer update
 fi
 
 chmod +x ./bin/magento
+M2SETUP_USE_SAMPLE_DATA_STRING=""
 
 if [ "$M2SETUP_USE_SAMPLE_DATA" = true ]; then
   echo "Installing Magento 2 sample data..."
   /usr/local/bin/php ./bin/magento sampledata:deploy
   M2SETUP_USE_SAMPLE_DATA_STRING="--use-sample-data"
-else
-  M2SETUP_USE_SAMPLE_DATA_STRING=""
 fi
 
 echo "Running Magento 2 setup script..."
