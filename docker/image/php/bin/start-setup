@@ -11,9 +11,9 @@ if [ -f ./app/etc/config.php ] || [ -f ./app/etc/env.php ]; then
 fi
 
 if [ ! -f ./composer.json ] || [ ! -f ./composer.lock ]; then
+  echo "Creating Magento 2 project..."
   rm -rf ./.* ./*
 
-  echo "Creating Magento 2 project..."
   # shellcheck disable=SC2086
   /usr/local/bin/php /usr/local/bin/composer create-project --repository-url=https://repo.magento.com/ \
     magento/project-community-edition=$M2SETUP_VERSION .
