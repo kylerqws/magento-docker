@@ -34,7 +34,7 @@ chmod +x ./bin/magento
 M2SETUP_USE_SAMPLE_DATA_STRING=""
 
 if [ "$M2SETUP_USE_SAMPLE_DATA" = true ]; then
-  echo "Updating Magento 2 project..."
+  echo "Updating Magento 2..."
   /usr/local/bin/php /usr/local/bin/composer update
 
   echo "Installing Magento 2 sample data..."
