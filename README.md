@@ -32,18 +32,8 @@ Please follow the next steps:
 
 7. Add the next text in hosts file of your OS system:
 
-         172.20.0.3 magento.loc
-         172.20.0.8 mailcatcher.loc
+         127.0.0.1 magento.loc
+         127.0.0.1 mailcatcher.loc:1080
 
 8. Open the browser and type the next link: http://magento.loc/
 9. Check MailCatcher link: http://mailcatcher.loc:1080/
-
-## Network IPs
-
-| Container | IP |
-|--------|--------|
-|M2 NGINX|172.20.0.3|
-|M2 PHP|172.20.0.4|
-|M2 MySQl|172.20.0.5|
-|M2 MailCatcher|172.20.0.8|
-|M2 ElasticSearch|172.20.0.9|

@@ -21,10 +21,7 @@ services:
       - $HOME/.ssh/id_rsa:/var/www/.ssh/id_rsa
       - $HOME/.ssh/known_hosts:/var/www/.ssh/known_hosts
     ports:
-      - 80
-    networks:
-      default:
-        ipv4_address: 172.20.0.3
+      - 80:80
     environment:
       - XDEBUG_CONFIG=remote_host=172.20.0.1
       - PHP_IDE_CONFIG=serverName=magento.loc
@@ -42,9 +39,6 @@ services:
     volumes: *appvolumes
     ports:
       - 9000
-    networks:
-      default:
-        ipv4_address: 172.20.0.4
     environment:
       - XDEBUG_CONFIG=remote_host=172.20.0.1
       - PHP_IDE_CONFIG=serverName=magento.loc
@@ -57,9 +51,6 @@ services:
       - ./docker/data/mysql:/var/lib/mysql
     ports:
       - 3306
-    networks:
-      default:
-        ipv4_address: 172.20.0.5
     env_file: ./docker/image/db/.env
 
   elastic:
@@ -73,9 +64,6 @@ services:
       - ./docker/data/elasticsearch:/usr/share/elasticsearch/data
     ports:
       - 9200
-    networks:
-      default:
-        ipv4_address: 172.20.0.9
     environment:
       - node.name=elastic
       - cluster.name=magento-cluster
@@ -88,11 +76,8 @@ services:
     image: $COMPOSE_PROJECT_NAME-mailcatcher
     container_name: $COMPOSE_PROJECT_NAME-mailcatcher
     ports:
-      - 1080
+      - 1080:1080
       - 1025
-    networks:
-      default:
-        ipv4_address: 172.20.0.8
 
   setup:
     image: $COMPOSE_PROJECT_NAME-php
