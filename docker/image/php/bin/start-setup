@@ -19,9 +19,6 @@ if [ ! -f ./composer.json ] || [ ! -f ./composer.lock ]; then
     magento/project-community-edition=$M2SETUP_VERSION .
 fi
 
-echo "Updating Magento 2 project..."
-/usr/local/bin/php /usr/local/bin/composer update
-
 # shellcheck disable=SC2016
 /usr/local/bin/php -r '
   if (file_exist($file = "/var/www/.composer/auth.json")) {
@@ -37,6 +34,9 @@ chmod +x ./bin/magento
 M2SETUP_USE_SAMPLE_DATA_STRING=""
 
 if [ "$M2SETUP_USE_SAMPLE_DATA" = true ]; then
+  echo "Updating Magento 2 project..."
+  /usr/local/bin/php /usr/local/bin/composer update
+
   echo "Installing Magento 2 sample data..."
   /usr/local/bin/php ./bin/magento sampledata:deploy
   M2SETUP_USE_SAMPLE_DATA_STRING="--use-sample-data"
