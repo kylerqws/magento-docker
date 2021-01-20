@@ -86,7 +86,7 @@ services:
   mailcatcher:
     build: ./docker/image/mailcatcher
     image: vulpea/mailcatcher:0.6.4
-    container_name: $COMPOSE_PROJECT_NAME-mailcatcher
+    container_name: mailcatcher
     ports:
       - 1080
       - 1025
