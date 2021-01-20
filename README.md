@@ -17,21 +17,28 @@ from https://docs.docker.com/compose/install/.
 Please follow the next steps:
 
 1. Download or clone this project in the directory you want to have the project installed.
-2. Open a terminal that allows you to run Docker Compose CLI application.
-3. Change directory in terminal to the directory where the step 1 was performed.
-4. Build the docker images with next command:
+2. Configure all .env docker files.
+3. Open the file `auth.json` from directory ./docker/image/php and add your
+   [repo.magento.com](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html) credentials
 
-`docker-compose up -d --build app`
+         "username": "<public_key>",
+         "password": "<private_key>"
 
-5. Add the next text in hosts file of your OS system:
+4. Open a terminal that allows you to run Docker Compose CLI application.
+5. Change directory in terminal to the directory where the step 1 was performed.
+6. Build the docker images with next command:
 
-`172.20.0.3 magento.loc`
+         docker-compose up -d --build app
 
-6. Open the browser and type the next link: http://magento.loc/
+7. Add the next text in hosts file of your OS system:
 
-7. Open MailCatcher link: http://172.20.0.8:1080/
+         172.20.0.3 magento.loc
+         172.20.0.8 mailcatcher.loc
 
-## Network IPs ##
+8. Open the browser and type the next link: http://magento.loc/
+9. Check MailCatcher link: http://mailcatcher.loc:1080/
+
+## Network IPs
 
 | Container | IP |
 |--------|--------|
@@ -40,7 +47,3 @@ Please follow the next steps:
 |M2 MySQl|172.20.0.5|
 |M2 MailCatcher|172.20.0.8|
 |M2 ElasticSearch|172.20.0.9|
-
-## Enter magento(PHP) container to run commands
-
-`docker-compose exec --user www-data phpfpm bash`
