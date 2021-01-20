@@ -28,7 +28,7 @@ fi
   if (file_exists($file = "/var/www/html/var/composer_home/auth.json")) {
     $data[] = json_decode(file_get_contents($file), true);
   }
-  mkdir("/var/www/html/var/composer_home", 0755, true);
+  @mkdir("/var/www/html/var/composer_home", 0755, true);
   file_put_contents("/var/www/html/var/composer_home/auth.json", json_encode(array_merge_recursive(...$data)));
 '
 
