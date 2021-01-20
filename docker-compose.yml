@@ -3,7 +3,7 @@ services:
 
   app:
     build: ./docker/image/nginx
-    image: vulpea/magento2-nginx
+    image: vulpea/$COMPOSE_PROJECT_NAME-nginx
     container_name: $COMPOSE_PROJECT_NAME-nginx
     depends_on:
       - db
@@ -16,6 +16,7 @@ services:
       - setup
     volumes: &appvolumes
       - ./html:/var/www/html
+      - ./docker/image/php/auth.json:/var/www/.composer/auth.json
       - $HOME/.ssh/id_rsa:/root/.ssh/id_rsa
       - $HOME/.ssh/id_rsa:/var/www/.ssh/id_rsa
       - $HOME/.ssh/known_hosts:/var/www/.ssh/known_hosts
@@ -31,7 +32,7 @@ services:
 
   phpfpm:
     build: ./docker/image/php
-    image: vulpea/magento2-php
+    image: vulpea/$COMPOSE_PROJECT_NAME-php
     container_name: $COMPOSE_PROJECT_NAME-php
     depends_on:
       - db
@@ -44,7 +45,6 @@ services:
     networks:
       default:
         ipv4_address: 172.20.0.4
-    env_file: ./docker/image/php/.env
     environment:
       - XDEBUG_CONFIG=remote_host=172.20.0.1
       - PHP_IDE_CONFIG=serverName=magento.loc
@@ -95,13 +95,13 @@ services:
         ipv4_address: 172.20.0.8
 
   setup:
-    image: vulpea/magento2-php
+    image: vulpea/$COMPOSE_PROJECT_NAME-php
     container_name: $COMPOSE_PROJECT_NAME-setup
-    command: /usr/local/bin/mage-setup
+    command: 'su -c "/usr/local/bin/start-setup" -s /bin/sh www-data'
     links:
       - db
     volumes: *appvolumes
-    env_file: ./docker/image/php/.env
+    env_file: ./docker/image/setup/.env
 
 networks:
   default:
