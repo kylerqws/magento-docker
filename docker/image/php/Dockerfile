@@ -60,6 +60,8 @@ COPY bin/* /usr/local/bin/
 RUN usermod -u 1000 www-data
 RUN usermod -G 100 www-data
 
+RUN chown -R www-data:www-data /var/www
+
 WORKDIR /var/www/html
 EXPOSE 9000
 
