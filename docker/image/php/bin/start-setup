@@ -22,6 +22,14 @@ if [ ! -f ./composer.json ] || [ ! -f ./composer.lock ]; then
   /usr/local/bin/php /usr/local/bin/composer update
 fi
 
+/usr/local/bin/php -r "file_put_contents(
+  '/var/www/html/var/composer_home/auth.json',
+  json_encode(array_merge_recursive(
+    json_decode(file_get_contents('/var/www/.composer/auth.json'), true),
+    json_decode(file_get_contents('/var/www/html/var/composer_home/auth.json'), true)
+  ))
+);"
+
 chmod +x ./bin/magento
 M2SETUP_USE_SAMPLE_DATA_STRING=""
 
