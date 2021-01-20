@@ -22,10 +22,10 @@ fi
 # shellcheck disable=SC2016
 /usr/local/bin/php -r '
   $data = [];
-  if (file_exist($file = "/var/www/.composer/auth.json")) {
+  if (file_exists($file = "/var/www/.composer/auth.json")) {
     $data[] = json_decode(file_get_contents($file), true);
   }
-  if (file_exist($file = "/var/www/html/var/composer_home/auth.json")) {
+  if (file_exists($file = "/var/www/html/var/composer_home/auth.json")) {
     $data[] = json_decode(file_get_contents($file), true);
   }
   file_put_contents("/var/www/html/var/composer_home/auth.json", json_encode(array_merge_recursive(...$data)));
