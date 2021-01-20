@@ -44,7 +44,7 @@ RUN apt-get -y install build-essential ruby-full libsqlite3-dev && \
 # install nano
 RUN apt-get install -y nano
 
-ENV PHP_MEMORY_LIMIT 2G
+ENV PHP_MEMORY_LIMIT 4G
 ENV PHP_PORT 9000
 ENV PHP_PM dynamic
 ENV PHP_PM_MAX_CHILDREN 10
