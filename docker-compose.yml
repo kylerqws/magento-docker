@@ -3,7 +3,7 @@ services:
 
   app:
     build: ./docker/image/nginx
-    image: vulpea/$COMPOSE_PROJECT_NAME-nginx
+    image: $COMPOSE_PROJECT_NAME-nginx
     container_name: $COMPOSE_PROJECT_NAME-nginx
     depends_on:
       - db
@@ -32,7 +32,7 @@ services:
 
   phpfpm:
     build: ./docker/image/php
-    image: vulpea/$COMPOSE_PROJECT_NAME-php
+    image: $COMPOSE_PROJECT_NAME-php
     container_name: $COMPOSE_PROJECT_NAME-php
     depends_on:
       - db
@@ -85,8 +85,8 @@ services:
 
   mailcatcher:
     build: ./docker/image/mailcatcher
-    image: vulpea/mailcatcher:0.6.4
-    container_name: mailcatcher
+    image: $COMPOSE_PROJECT_NAME-mailcatcher
+    container_name: $COMPOSE_PROJECT_NAME-mailcatcher
     ports:
       - 1080
       - 1025
@@ -95,7 +95,7 @@ services:
         ipv4_address: 172.20.0.8
 
   setup:
-    image: vulpea/$COMPOSE_PROJECT_NAME-php
+    image: $COMPOSE_PROJECT_NAME-php
     container_name: $COMPOSE_PROJECT_NAME-setup
     command: 'su -c "/usr/local/bin/start-setup" -s /bin/sh www-data'
     links:
