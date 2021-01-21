@@ -3,8 +3,8 @@ services:
 
   app:
     build: ./docker/image/nginx
-    image: $COMPOSE_PROJECT_NAME-nginx
-    container_name: $COMPOSE_PROJECT_NAME-nginx
+    image: ${COMPOSE_PROJECT_NAME}-nginx
+    container_name: ${COMPOSE_PROJECT_NAME}-nginx
     depends_on:
       - db
       - phpfpm
@@ -25,8 +25,8 @@ services:
 
   phpfpm:
     build: ./docker/image/php
-    image: $COMPOSE_PROJECT_NAME-php
-    container_name: $COMPOSE_PROJECT_NAME-php
+    image: ${COMPOSE_PROJECT_NAME}-php
+    container_name: ${COMPOSE_PROJECT_NAME}-php
     depends_on:
       - db
     links:
@@ -40,7 +40,7 @@ services:
 
   db:
     image: mysql:5.7
-    container_name: $COMPOSE_PROJECT_NAME-db
+    container_name: ${COMPOSE_PROJECT_NAME}-db
     volumes:
       - ./docker/data/mysql:/var/lib/mysql
     ports:
@@ -49,7 +49,7 @@ services:
 
   elastic:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
-    container_name: $COMPOSE_PROJECT_NAME-elastic
+    container_name: ${COMPOSE_PROJECT_NAME}-elastic
     ulimits:
       memlock:
         soft: -1
@@ -67,15 +67,15 @@ services:
 
   mailcatcher:
     build: ./docker/image/mailcatcher
-    image: $COMPOSE_PROJECT_NAME-mailcatcher
-    container_name: $COMPOSE_PROJECT_NAME-mailcatcher
+    image: ${COMPOSE_PROJECT_NAME}-mailcatcher
+    container_name: ${COMPOSE_PROJECT_NAME}-mailcatcher
     ports:
       - 1080:1080
       - 1025
 
   setup:
-    image: $COMPOSE_PROJECT_NAME-php
-    container_name: $COMPOSE_PROJECT_NAME-setup
+    image: ${COMPOSE_PROJECT_NAME}-php
+    container_name: ${COMPOSE_PROJECT_NAME}-setup
     command: "su -c /usr/local/bin/start-setup -s /bin/sh www-data"
     links:
       - db
