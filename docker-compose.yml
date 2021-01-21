@@ -16,6 +16,7 @@ services:
       - setup
     volumes: &appvolumes
       - ./html:/var/www/html
+      - ./docker/socket:/var/www/run
       - ./docker/image/php/auth.json:/var/www/.composer/auth.json
       - ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa
       - ${HOME}/.ssh/id_rsa:/var/www/.ssh/id_rsa
