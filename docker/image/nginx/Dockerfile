@@ -1,4 +1,4 @@
-FROM nginx:1.11
+FROM nginx:1.19
 MAINTAINER Victor Todoran "victorvulpeatodoran@gmail.com"
 
 ENV PHP_HOST phpfpm
