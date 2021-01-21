@@ -4,10 +4,10 @@
 html/*
 !html/.gitkeep
 
-docker/data/mysql/*
-!docker/data/mysql/.gitkeep
+docker/data/db/*
+!docker/data/db/.gitkeep
 
-docker/data/elasticsearch/*
-!docker/data/elasticsearch/.gitkeep
+docker/data/elastic/*
+!docker/data/elastic/.gitkeep
 
 docker/image/php/auth.json
