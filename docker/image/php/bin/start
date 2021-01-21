@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# start the cron service
-/usr/local/bin/start-cron
-
-# start the php-fpm service
-/usr/local/sbin/php-fpm

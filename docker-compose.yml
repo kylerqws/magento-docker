@@ -10,6 +10,7 @@ services:
       - phpfpm
     links:
       - phpfpm
+      - cron
       - db
       - elastic
       - mailcatcher
@@ -38,6 +39,20 @@ services:
       - 9000
     environment:
       - PHP_IDE_CONFIG=serverName=docker
+
+  cron:
+    build:
+      context: ./docker/image/cron
+      args:
+        - PHP_IMAGE_NAME=${COMPOSE_PROJECT_NAME}-php
+    image: ${COMPOSE_PROJECT_NAME}-cron
+    container_name: ${COMPOSE_PROJECT_NAME}-cron
+    depends_on:
+      - phpfpm
+    links:
+      - db
+      - elastic
+    volumes: *appvolumes
 
   db:
     image: mariadb:10.5.8
@@ -73,8 +88,11 @@ services:
     image: ${COMPOSE_PROJECT_NAME}-php
     container_name: ${COMPOSE_PROJECT_NAME}-setup
     command: "su -c /usr/local/bin/start-setup -s /bin/sh www-data"
+    depends_on:
+      - phpfpm
     links:
       - db
+      - elastic
     volumes: *appvolumes
     env_file: ./docker/image/setup/.env
 
