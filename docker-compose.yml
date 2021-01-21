@@ -6,9 +6,6 @@ services:
     image: ${COMPOSE_PROJECT_NAME}-nginx
     container_name: ${COMPOSE_PROJECT_NAME}-nginx
     depends_on:
-      - db
-      - phpfpm
-    links:
       - phpfpm
       - cron
       - db
@@ -31,9 +28,6 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}-php
     depends_on:
       - db
-    links:
-      - db
-      - elastic
     volumes: *appvolumes
     ports:
       - 9000
@@ -49,9 +43,6 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}-cron
     depends_on:
       - phpfpm
-    links:
-      - db
-      - elastic
     volumes: *appvolumes
 
   db:
@@ -93,9 +84,6 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}-setup
     depends_on:
       - phpfpm
-    links:
-      - db
-      - elastic
     volumes: *appvolumes
     env_file: ./docker/image/setup/.env
 
