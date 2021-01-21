@@ -8,7 +8,6 @@ RUN apt-get update && \
     libjpeg62-turbo-dev \
     libmcrypt-dev \
     libpng-dev \
-    mariadb-client \
     libxslt1-dev
 
 RUN docker-php-ext-configure gd \
@@ -25,8 +24,8 @@ RUN docker-php-ext-install \
     zip \
     sockets
 
-RUN pecl channel-update pecl.php.net
-RUN pecl install mcrypt-1.0.1
+RUN pecl channel-update pecl.php.net && \
+    pecl install mcrypt-1.0.1
 
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/local/bin --filename=composer --prefer-dist --version=1.10.19 && \
@@ -36,13 +35,9 @@ RUN curl -sS https://getcomposer.org/installer | \
 RUN pecl install -o -f xdebug-2.6.1 && docker-php-ext-enable xdebug
 
 # install Mailcatcher
-RUN apt-get update
-
-RUN apt-get -y install build-essential ruby-full libsqlite3-dev && \
+RUN apt-get update && \
+    apt-get -y install build-essential ruby-full libsqlite3-dev && \
     gem install mailcatcher --no-rdoc --no-ri
-
-# install nano
-RUN apt-get install -y nano
 
 ENV PHP_MEMORY_LIMIT 4G
 ENV PHP_PORT 9000
@@ -57,10 +52,8 @@ COPY conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY conf/php-fpm.conf /usr/local/etc/
 COPY bin/* /usr/local/bin/
 
-RUN usermod -u 1000 www-data
-RUN usermod -G 100 www-data
-
-RUN chown -R www-data:www-data /var/www
+RUN usermod -u 1000 www-data && usermod -G 100 www-data && \
+    chown -R www-data:www-data /var/www
 
 WORKDIR /var/www/html
 EXPOSE 9000
