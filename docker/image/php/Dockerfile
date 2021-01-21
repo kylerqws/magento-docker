@@ -39,14 +39,6 @@ RUN apt-get update && \
     apt-get -y install build-essential ruby-full libsqlite3-dev && \
     gem install mailcatcher --no-rdoc --no-ri
 
-ENV PHP_MEMORY_LIMIT 4G
-ENV PHP_PORT 9000
-ENV PHP_PM dynamic
-ENV PHP_PM_MAX_CHILDREN 10
-ENV PHP_PM_START_SERVERS 4
-ENV PHP_PM_MIN_SPARE_SERVERS 2
-ENV PHP_PM_MAX_SPARE_SERVERS 6
-
 COPY conf/php.ini /usr/local/etc/php/
 COPY conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY conf/php-fpm.conf /usr/local/etc/
