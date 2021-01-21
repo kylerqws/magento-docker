@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+DIR="/home/user/www"
+HELP="Script create or remove a symbolic link /var/www to the ${DIR}/<name> directory.
+
+  $(basename "$0") <action> <name>
+
+    <action>          performed action script
+      -c, --create    creating a symbolic link
+      -r, --remove    removing a symbolic link
+      -h, --help      display this help
+    <name>            directory name from ${DIR} path"
+
+if [ "$1" = -c ] || [ "$1" = --create ]; then
+  if [ -z "$2" ]; then
+    printf "error: Required parameter(s) are not specified\n\n%s\n" "$HELP" && exit 1
+  fi
+
+  DIR="${DIR}/${2}"
+  if [ ! -d "$DIR" ]; then
+    printf "error: Directory ${DIR} not found\n\n%s\n" "$HELP" && exit 1
+  fi
+
+  $0 -r && cd /var &> /dev/null || exit 1 && sudo ln -s "$DIR" www && cd - &> /dev/null || exit 1
+elif [ "$1" = -r ] || [ "$1" = --remove ]; then
+  if [ -s /var/www ]; then
+    sudo rm /var/www
+  fi
+elif [ "$1" = -h ] || [ "$1" = --help ]; then
+  echo "$HELP"
+else
+  printf "error: Required parameter(s) are not specified\n\n%s\n" "$HELP" && exit 1
+fi
