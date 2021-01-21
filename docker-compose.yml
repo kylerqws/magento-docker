@@ -58,12 +58,7 @@ services:
       - ./docker/data/elasticsearch:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
-    environment:
-      - node.name=elastic
-      - cluster.name=magento-cluster
-      - bootstrap.memory_lock=true
-      - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+    env_file: ./docker/image/elastic/.env
 
   mailcatcher:
     build: ./docker/image/mailcatcher
