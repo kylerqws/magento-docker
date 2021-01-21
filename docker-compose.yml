@@ -17,9 +17,9 @@ services:
     volumes: &appvolumes
       - ./html:/var/www/html
       - ./docker/image/php/auth.json:/var/www/.composer/auth.json
-      - $HOME/.ssh/id_rsa:/root/.ssh/id_rsa
-      - $HOME/.ssh/id_rsa:/var/www/.ssh/id_rsa
-      - $HOME/.ssh/known_hosts:/var/www/.ssh/known_hosts
+      - ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa
+      - ${HOME}/.ssh/id_rsa:/var/www/.ssh/id_rsa
+      - ${HOME}/.ssh/known_hosts:/var/www/.ssh/known_hosts
     ports:
       - 80:80
 
