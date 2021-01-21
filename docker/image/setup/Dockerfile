@@ -8,4 +8,4 @@ RUN rm -rf /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 COPY bin/* /usr/local/bin/
 
-CMD ["/usr/local/bin/start"]
+CMD ["su", "-c", "/usr/local/bin/start", "-s", "/bin/sh", "www-data"]
