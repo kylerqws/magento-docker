@@ -1,7 +1,7 @@
 ARG PHP_IMAGE_NAME
 FROM ${PHP_IMAGE_NAME}
 
-# install Cron
+# install cron
 RUN rm -rf /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     apt-get update && apt-get install -y cron
 
