@@ -1,4 +1,5 @@
 FROM php:7.2-fpm
+MAINTAINER Rodion Kachkin "kyleRQWS@gmail.com"
 
 RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
@@ -25,15 +26,15 @@ RUN docker-php-ext-install \
 RUN pecl channel-update pecl.php.net && \
     pecl install mcrypt-1.0.1
 
-# install Composer
+# install composer
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/local/bin --filename=composer --prefer-dist --version=1.10.19 && \
     mkdir /var/www/.composer
 
-# install Xdebug
+# install xdebug
 RUN pecl install -o -f xdebug-2.9.8 && docker-php-ext-enable xdebug
 
-# install Mailcatcher
+# install mailcatcher
 RUN apt-get update && \
     apt-get -y install build-essential ruby-full libsqlite3-dev && \
     gem install mailcatcher --no-rdoc --no-ri
@@ -41,7 +42,6 @@ RUN apt-get update && \
 COPY conf/php.ini /usr/local/etc/php/
 COPY conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY conf/php-fpm.conf /usr/local/etc/
-COPY bin/* /usr/local/bin/
 
 RUN usermod -u 1000 www-data && usermod -G 100 www-data && \
     chown -R www-data:www-data /var/www
@@ -49,4 +49,4 @@ RUN usermod -u 1000 www-data && usermod -G 100 www-data && \
 WORKDIR /var/www/html
 EXPOSE 9000
 
-CMD ["/usr/local/bin/start"]
+CMD ["/usr/local/sbin/php-fpm"]
