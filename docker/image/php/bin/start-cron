@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-echo "*/1 * * * * su -c \"/usr/local/bin/php -d memory_limit=4G /var/www/html/update/cron.php\" -s /bin/sh www-data > /proc/1/fd/2 2>&1" | crontab - \
-  && (crontab -l ; echo "*/1 * * * * su -c \"/usr/local/bin/php -d memory_limit=4G /var/www/html/bin/magento cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1") | crontab - \
-  && (crontab -l ; echo "*/1 * * * * su -c \"/usr/local/bin/php -d memory_limit=4G /var/www/html/bin/magento setup:cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1") | crontab -
+PHP="/usr/local/bin/php -d xdebug.remote_autostart=no xdebug.remote_enable=no"
+echo "*/1 * * * * su -c \"$PHP /var/www/html/update/cron.php\" -s /bin/sh www-data > /proc/1/fd/2 2>&1" | crontab - \
+  && (crontab -l ; echo "*/1 * * * * su -c \"$PHP /var/www/html/bin/magento cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1") | crontab - \
+  && (crontab -l ; echo "*/1 * * * * su -c \"$PHP /var/www/html/bin/magento setup:cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1") | crontab -
 
 /usr/sbin/cron
