@@ -22,10 +22,6 @@ services:
       - $HOME/.ssh/known_hosts:/var/www/.ssh/known_hosts
     ports:
       - 80:80
-    environment:
-      - XDEBUG_CONFIG=remote_host=172.20.0.1
-      - PHP_IDE_CONFIG=serverName=magento.loc
-      - XDEBUG_CONFIG=xdebug.idekey=PHPSTORM
 
   phpfpm:
     build: ./docker/image/php
@@ -40,9 +36,7 @@ services:
     ports:
       - 9000
     environment:
-      - XDEBUG_CONFIG=remote_host=172.20.0.1
-      - PHP_IDE_CONFIG=serverName=magento.loc
-      - XDEBUG_CONFIG=xdebug.idekey=PHPSTORM
+      - PHP_IDE_CONFIG=serverName=docker
 
   db:
     image: mysql:5.7
@@ -50,7 +44,7 @@ services:
     volumes:
       - ./docker/data/mysql:/var/lib/mysql
     ports:
-      - 3306
+      - 3306:3306
     env_file: ./docker/image/db/.env
 
   elastic:
@@ -63,7 +57,7 @@ services:
     volumes:
       - ./docker/data/elasticsearch:/usr/share/elasticsearch/data
     ports:
-      - 9200
+      - 9200:9200
     environment:
       - node.name=elastic
       - cluster.name=magento-cluster
@@ -82,7 +76,7 @@ services:
   setup:
     image: $COMPOSE_PROJECT_NAME-php
     container_name: $COMPOSE_PROJECT_NAME-setup
-    command: 'su -c "/usr/local/bin/start-setup" -s /bin/sh www-data'
+    command: "su -c /usr/local/bin/start-setup -s /bin/sh www-data"
     links:
       - db
     volumes: *appvolumes
