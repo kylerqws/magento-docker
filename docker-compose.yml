@@ -85,9 +85,12 @@ services:
       - 1025
 
   setup:
-    image: ${COMPOSE_PROJECT_NAME}-php
+    build:
+      context: ./docker/image/setup
+      args:
+        - PHP_IMAGE_NAME=${COMPOSE_PROJECT_NAME}-php
+    image: ${COMPOSE_PROJECT_NAME}-setup
     container_name: ${COMPOSE_PROJECT_NAME}-setup
-    command: "su -c /usr/local/bin/start-setup -s /bin/sh www-data"
     depends_on:
       - phpfpm
     links:
