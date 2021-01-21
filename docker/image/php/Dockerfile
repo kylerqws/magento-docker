@@ -1,7 +1,6 @@
 FROM php:7.2-fpm
 
-RUN apt-get update && \
-    apt-get install -y \
+RUN apt-get update && apt-get install -y && \
     cron \
     libfreetype6-dev \
     libicu-dev \
@@ -27,12 +26,13 @@ RUN docker-php-ext-install \
 RUN pecl channel-update pecl.php.net && \
     pecl install mcrypt-1.0.1
 
+# install Composer
 RUN curl -sS https://getcomposer.org/installer | \
-    php -- --install-dir=/usr/local/bin --filename=composer --prefer-dist --version=1.10.19 && \
+    php -- --install-dir=/usr/local/bin --filename=composer --prefer-dist && \
     mkdir /var/www/.composer
 
 # install Xdebug
-RUN pecl install -o -f xdebug-2.6.1 && docker-php-ext-enable xdebug
+RUN pecl install -o -f xdebug-2.9.8 && docker-php-ext-enable xdebug
 
 # install Mailcatcher
 RUN apt-get update && \
