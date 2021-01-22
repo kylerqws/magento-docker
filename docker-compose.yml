@@ -6,12 +6,12 @@ services:
     image: ${COMPOSE_PROJECT_NAME}-nginx
     container_name: ${COMPOSE_PROJECT_NAME}-nginx
     depends_on:
+      - db
+      - es
       - phpfpm
       - cron
-      - db
-      - elastic
-      - mailcatcher
       - setup
+      - mailcatcher
     volumes: &appvolumes
       - ./html:/var/www/html
       - ./docker/socket:/var/www/run
@@ -54,18 +54,18 @@ services:
       - 3306:3306
     env_file: ./docker/image/db/.env
 
-  elastic:
+  es:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
-    container_name: ${COMPOSE_PROJECT_NAME}-elastic
+    container_name: ${COMPOSE_PROJECT_NAME}-es
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
-      - ./docker/data/elastic:/usr/share/elasticsearch/data
+      - ./docker/data/es:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
-    env_file: ./docker/image/elastic/.env
+    env_file: ./docker/image/es/.env
 
   mailcatcher:
     build: ./docker/image/mailcatcher

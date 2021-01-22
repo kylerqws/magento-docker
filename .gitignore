@@ -7,7 +7,7 @@ html/*
 docker/data/db/*
 !docker/data/db/.gitkeep
 
-docker/data/elastic/*
-!docker/data/elastic/.gitkeep
+docker/data/es/*
+!docker/data/es/.gitkeep
 
 docker/image/php/auth.json
