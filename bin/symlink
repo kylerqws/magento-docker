@@ -15,7 +15,7 @@ fi
 
 case "$1" in
   -c|--create)
-    PROJECT_DIR="$(readlink --canonicalize "$(dirname "$0")/../..")"
+    PROJECT_DIR="$(readlink --canonicalize "$(dirname "$0")/../../")"
     $0 -r && cd /var &> /dev/null || exit 1 && sudo ln -s "$PROJECT_DIR" www && cd - &> /dev/null || exit 1
   ;;
   -r|--remove)
