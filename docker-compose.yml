@@ -22,6 +22,28 @@ services:
     ports:
       - 80:80
 
+  db:
+    image: mariadb:10.5.8
+    container_name: ${COMPOSE_PROJECT_NAME}-db
+    volumes:
+      - ./docker/data/db:/var/lib/mysql
+    ports:
+      - 3306:3306
+    env_file: ./docker/image/db/.env
+
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+    container_name: ${COMPOSE_PROJECT_NAME}-es
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./docker/data/es:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    env_file: ./docker/image/es/.env
+
   phpfpm:
     build: ./docker/image/php
     image: ${COMPOSE_PROJECT_NAME}-php
@@ -45,36 +67,6 @@ services:
       - phpfpm
     volumes: *appvolumes
 
-  db:
-    image: mariadb:10.5.8
-    container_name: ${COMPOSE_PROJECT_NAME}-db
-    volumes:
-      - ./docker/data/db:/var/lib/mysql
-    ports:
-      - 3306:3306
-    env_file: ./docker/image/db/.env
-
-  es:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
-    container_name: ${COMPOSE_PROJECT_NAME}-es
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - ./docker/data/es:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-    env_file: ./docker/image/es/.env
-
-  mailcatcher:
-    build: ./docker/image/mailcatcher
-    image: ${COMPOSE_PROJECT_NAME}-mailcatcher
-    container_name: ${COMPOSE_PROJECT_NAME}-mailcatcher
-    ports:
-      - 1080:1080
-      - 1025
-
   setup:
     build:
       context: ./docker/image/setup
@@ -86,6 +78,14 @@ services:
       - phpfpm
     volumes: *appvolumes
     env_file: ./docker/image/setup/.env
+
+  mailcatcher:
+    build: ./docker/image/mailcatcher
+    image: ${COMPOSE_PROJECT_NAME}-mailcatcher
+    container_name: ${COMPOSE_PROJECT_NAME}-mailcatcher
+    ports:
+      - 1080:1080
+      - 1025
 
 networks:
   default:
