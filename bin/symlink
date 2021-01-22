@@ -5,7 +5,7 @@ HELP="Script create or remove a symbolic link /var/www to the ${DIR}/<name> dire
 
   $(basename "$0") <action> <name>
 
-    <action>          performed action script
+    <action>          script execution action
       -c, --create    creating a symbolic link
       -r, --remove    removing a symbolic link
       -h, --help      display this help
