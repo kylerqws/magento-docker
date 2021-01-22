@@ -1,33 +1,27 @@
 #!/usr/bin/env bash
 
-DIR="/home/user/www"
-HELP="Script create or remove a symbolic link /var/www to the ${DIR}/<name> directory.
+HELP="Script create or remove a symbolic link /var/www to the project directory.
 
-  $(basename "$0") <action> <name>
+  $(basename "$0") <action>
 
     <action>          script execution action
       -c, --create    creating a symbolic link
       -r, --remove    removing a symbolic link
-      -h, --help      display this help
-    <name>            directory name from ${DIR} path"
+      -h, --help      display this help"
 
-if [ "$1" = -c ] || [ "$1" = --create ]; then
-  if [ -z "$2" ]; then
-    printf "error: Required parameter(s) are not specified\n\n%s\n" "$HELP" && exit 1
-  fi
-
-  DIR="${DIR}/${2}"
-  if [ ! -d "$DIR" ]; then
-    printf "error: Directory ${DIR} not found\n\n%s\n" "$HELP" && exit 1
-  fi
-
-  $0 -r && cd /var &> /dev/null || exit 1 && sudo ln -s "$DIR" www && cd - &> /dev/null || exit 1
-elif [ "$1" = -r ] || [ "$1" = --remove ]; then
-  if [ -s /var/www ]; then
-    sudo rm /var/www
-  fi
-elif [ "$1" = -h ] || [ "$1" = --help ]; then
-  echo "$HELP"
-else
-  printf "error: Required parameter(s) are not specified\n\n%s\n" "$HELP" && exit 1
+if [ "$1" = -h ] || [ "$1" = --help ]; then
+  echo "$HELP" && exit
 fi
+
+case "$1" in
+  -c|--create)
+    $0 -r && cd /var &> /dev/null || exit 1 && sudo ln -s \
+      "$(readlink --canonicalize "$(dirname "$0")/../../")" www && cd - &> /dev/null || exit 1
+  ;;
+  -r|--remove)
+    if [ -s /var/www ]; then sudo rm /var/www; fi
+  ;;
+  *)
+    printf "error: Required parameter(s) are not specified\n\n%s\n" "$HELP" && exit 1
+  ;;
+esac
