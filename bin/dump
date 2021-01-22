@@ -21,9 +21,9 @@ if source "${BASE_DIR}/.env" && source "${BASE_DIR}/docker/image/db/.env"; then
   fi
 
   if [ "${2:0:1}" != / ]; then
-    DUMP_FILE="$(readlink --canonicalize "$(pwd)/${2%.sql.gz}.sql.gz")"
+    DUMP_FILE="$(readlink --canonicalize "$(pwd)/${2%.sql.gz}").sql.gz"
   else
-    DUMP_FILE="$(readlink --canonicalize "${2%.sql.gz}.sql.gz")"
+    DUMP_FILE="$(readlink --canonicalize "${2%.sql.gz}").sql.gz"
   fi
 
   case "$1" in
