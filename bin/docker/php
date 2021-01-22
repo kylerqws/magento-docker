@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-BASE_DIR="$(readlink --canonicalize "$(dirname "$0")/../")"
+BASE_DIR="$(readlink --canonicalize "$(dirname "$0")/../../")"
 docker-compose --file "${BASE_DIR}/docker-compose.yml" exec --user www-data phpfpm php "$@"
