@@ -4,7 +4,8 @@ The [victortodoran/docker-magento](https://github.com/victortodoran/docker-magen
 
 ## Disclaimer
 
-Under no circumstance do NOT use this in production. This offers a quick way to start development with Magento2 locally.
+Under no circumstance do NOT use this in production.
+This offers a quick way to start development with Magento 2 locally.
 
 ## Requirements
 
@@ -41,5 +42,5 @@ docker-compose up -d --build app
 127.0.0.1 mailcatcher.loc:1080
 ```
 
-8. Open the browser and type the next link: http://magento.loc/
-9. Check MailCatcher link: http://mailcatcher.loc:1080/
+8. Open the browser and type the next link: http://magento.loc/.
+9. Check MailCatcher link: http://mailcatcher.loc:1080/.
