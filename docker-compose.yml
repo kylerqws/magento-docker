@@ -8,7 +8,7 @@ services:
     depends_on:
       - db
       - es
-      - phpfpm
+      - php
       - cron
       - setup
       - mailcatcher
@@ -44,7 +44,7 @@ services:
       - 9200:9200
     env_file: ./docker/image/es/.env
 
-  phpfpm:
+  php:
     build: ./docker/image/php
     image: ${COMPOSE_PROJECT_NAME}-php
     container_name: ${COMPOSE_PROJECT_NAME}-php
@@ -64,7 +64,7 @@ services:
     image: ${COMPOSE_PROJECT_NAME}-cron
     container_name: ${COMPOSE_PROJECT_NAME}-cron
     depends_on:
-      - phpfpm
+      - php
     volumes: *appvolumes
 
   setup:
@@ -75,7 +75,7 @@ services:
     image: ${COMPOSE_PROJECT_NAME}-setup
     container_name: ${COMPOSE_PROJECT_NAME}-setup
     depends_on:
-      - phpfpm
+      - php
     volumes: *appvolumes
     env_file: ./docker/image/setup/.env
 

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 BASE_DIR="$(readlink --canonicalize "$(dirname "$0")/../")"
-docker-compose --file "${BASE_DIR}/docker-compose.yml" exec --user www-data phpfpm composer "$@"
+docker-compose --file "${BASE_DIR}/docker-compose.yml" exec --user www-data php composer "$@"
