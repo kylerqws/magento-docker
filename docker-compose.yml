@@ -14,7 +14,6 @@ services:
       - mailcatcher
     volumes: &appvolumes
       - ./html:/var/www/html
-      - ./docker/socket:/var/www/run
       - ./docker/image/php/auth.json:/var/www/.composer/auth.json
       - ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa
       - ${HOME}/.ssh/id_rsa:/var/www/.ssh/id_rsa
@@ -32,7 +31,9 @@ services:
     env_file: ./docker/image/db/.env
 
   es:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+    build:
+      context: ./docker/image/es
+    image: ${COMPOSE_PROJECT_NAME}-es
     container_name: ${COMPOSE_PROJECT_NAME}-es
     ulimits:
       memlock:
