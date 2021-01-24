@@ -27,8 +27,7 @@ if source "${BASE_DIR}/.env" && source "${BASE_DIR}/docker/image/db/.env"; then
 
   case "$1" in
     -c|--create)
-      docker exec "${COMPOSE_PROJECT_NAME}-db" sh -c \
-        "exec mysqldump -u'${MYSQL_USER}' -p'${MYSQL_PASSWORD}' \
+      docker exec "${COMPOSE_PROJECT_NAME}-db" sh -c "exec mysqldump -u'${MYSQL_USER}' -p'${MYSQL_PASSWORD}' \
         --single-transaction --quick --lock-tables --add-drop-table \
         ${MYSQL_DATABASE} ${MYSQL_TABLES[*]} | gzip -9" > "$DUMP_FILE"
     ;;
