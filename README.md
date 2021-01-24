@@ -4,8 +4,8 @@ The [victortodoran/docker-magento](https://github.com/victortodoran/docker-magen
 
 ## Disclaimer
 
-Under no circumstance do NOT use this in production.
-This offers a quick way to start development with Magento 2 locally.
+Under no circumstance do NOT use this in production. This offers a quick way to start development with Magento 2
+locally.
 
 ## Requirements
 
