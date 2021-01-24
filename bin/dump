@@ -19,19 +19,11 @@ fi
 BASE_DIR="$(readlink --canonicalize "$(dirname "$0")/../")"
 if source "${BASE_DIR}/.env" && source "${BASE_DIR}/docker/image/db/.env"; then
   if [ -z "$2" ]; then
-    printf "error: Required parameter(s) are not specified\n%s\n" "$HELP" && exit 1
+    printf "error: Not specified(s) required parameter(s)\n%s\n" "$HELP" && exit 1
   fi
 
-  if [ "${2:0:1}" != / ]; then
-    DUMP_FILE="$(readlink --canonicalize "$(pwd)/${2%.sql.gz}").sql.gz"
-  else
-    DUMP_FILE="$(readlink --canonicalize "${2%.sql.gz}").sql.gz"
-  fi
-
-  if [ -n "${*:3}" ]; then
-    MYSQL_DATABASE="$3"
-    MYSQL_TABLES=("${@:4}")
-  fi
+  DUMP_FILE="$(readlink --canonicalize "$(if [ "${2:0:1}" != / ]; then pwd; fi)/${2%.sql.gz}").sql.gz"
+  if [ -n "${*:3}" ]; then MYSQL_DATABASE="$3"; MYSQL_TABLES=("${@:4}"); fi
 
   case "$1" in
     -c|--create)
@@ -44,8 +36,6 @@ if source "${BASE_DIR}/.env" && source "${BASE_DIR}/docker/image/db/.env"; then
       docker exec -i "${COMPOSE_PROJECT_NAME}-db" sh -c \
         "exec gunzip -c | mysql -u'${MYSQL_USER}' -p'${MYSQL_PASSWORD}' ${MYSQL_DATABASE}" < "$DUMP_FILE"
     ;;
-    *)
-      printf "error: Required parameter(s) are not specified\n%s\n" "$HELP" && exit 1
-    ;;
+    *) printf "error: Not specified(s) required parameter(s)\n%s\n" "$HELP" && exit 1 ;;
   esac
 fi
