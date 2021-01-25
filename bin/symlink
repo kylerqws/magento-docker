@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+HELP="Script create or remove a symbolic link /var/www/html to the project directory.
+
+  $(basename "$0") <action>
+
+    <action>          script execution action
+      -c, --create    creating a symbolic link
+      -r, --remove    removing a symbolic link
+      -h, --help      display this help"
+
+if [ "$1" = -h ] || [ "$1" = --help ]; then
+  echo "$HELP" && exit
+fi
+
+case "$1" in
+  -c|--create)
+    if [ ! -d /var/www ]; then sudo mkdir /var/www; fi
+    PROJECT_DIR="$(readlink --canonicalize "$(dirname "$0")/../html")"
+    $0 -r && cd /var/www &> /dev/null || exit 1 && sudo ln -s "$PROJECT_DIR" html && cd - &> /dev/null || exit 1
+  ;;
+  -r|--remove)
+    if [ -s /var/www/html ]; then sudo rm /var/www/html; fi
+  ;;
+  *)
+    printf "error: Not specified(s) required parameter(s)\n%s\n" "$HELP" && exit 1
+  ;;
+esac
