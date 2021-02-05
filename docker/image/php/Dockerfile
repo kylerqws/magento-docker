@@ -8,7 +8,8 @@ RUN apt-get update && apt-get -y install \
     libmcrypt-dev \
     libpng-dev \
     libxslt1-dev \
-    libzip-dev
+    libzip-dev \
+    libonig-dev
 
 RUN docker-php-ext-install \
     bcmath \
