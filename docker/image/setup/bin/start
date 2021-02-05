@@ -72,9 +72,6 @@ echo "Running Magento 2 setup script..."
   --admin-lastname=${M2SETUP_ADMIN_LASTNAME} \
   --admin-email=${M2SETUP_ADMIN_EMAIL} \
   \
-  --enable-modules=${M2SETUP_ENABLE_MODULES} \
-  --disable-modules=${M2SETUP_DISABLE_MODULES} \
-  \
   ${M2SETUP_USE_SAMPLE_DATA_STRING}
 
 echo "The setup script has completed execution."
