@@ -1,16 +1,14 @@
-FROM php:7.2-fpm
+FROM php:7.3-fpm
 MAINTAINER Rodion Kachkin "kyleRQWS@gmail.com"
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get -y install \
     libfreetype6-dev \
     libicu-dev \
     libjpeg62-turbo-dev \
     libmcrypt-dev \
     libpng-dev \
-    libxslt1-dev
-
-RUN docker-php-ext-configure gd \
-    --with-freetype-dir=/usr/include/freetype2 --with-png-dir=/usr/include --with-jpeg-dir=/usr/include
+    libxslt1-dev \
+    libzip-dev
 
 RUN docker-php-ext-install \
     bcmath \
@@ -23,16 +21,27 @@ RUN docker-php-ext-install \
     zip \
     sockets
 
+RUN docker-php-ext-configure gd \
+    --with-freetype-dir=/usr/include/freetype2 \
+    --with-png-dir=/usr/include \
+    --with-jpeg-dir=/usr/include
+
 RUN pecl channel-update pecl.php.net && \
-    pecl install mcrypt-1.0.1
+    pecl install mcrypt
+
+# install kafka
+RUN apt-get update && apt-get -y install git && \
+    git clone --branch v1.4.0 --depth 1 https://github.com/edenhill/librdkafka.git /tmp/librdkafka && \
+    cd /tmp/librdkafka && ./configure && make && make install && \
+    pecl install -o -f rdkafka-4.0.0 && docker-php-ext-enable rdkafka
+
+# install xdebug
+RUN pecl install -o -f xdebug-2.9.8 && docker-php-ext-enable xdebug
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/local/bin --filename=composer --prefer-dist --version=1.10.19 && \
     mkdir /var/www/.composer
-
-# install xdebug
-RUN pecl install -o -f xdebug-2.9.8 && docker-php-ext-enable xdebug
 
 # install mailcatcher
 RUN apt-get update && \

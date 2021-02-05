@@ -1,6 +1,9 @@
 .idea
 .env
 
+tmp/*
+!tmp/.gitkeep
+
 html/*
 !html/.gitkeep
 
