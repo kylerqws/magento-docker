@@ -23,9 +23,8 @@ RUN docker-php-ext-install \
     sockets
 
 RUN docker-php-ext-configure gd \
-    --with-freetype-dir=/usr/include/freetype2 \
-    --with-png-dir=/usr/include \
-    --with-jpeg-dir=/usr/include
+    --with-freetype=/usr/include \
+    --with-jpeg=/usr/include
 
 RUN pecl channel-update pecl.php.net && \
     pecl install mcrypt
