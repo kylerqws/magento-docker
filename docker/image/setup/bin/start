@@ -40,7 +40,7 @@ fi
 chmod +x ./bin/magento
 M2SETUP_USE_SAMPLE_DATA_STRING=""
 
-if [ "${M2SETUP_USE_SAMPLE_DATA}" = true ]; then
+if [ "${M2SETUP_USE_SAMPLE_DATA}" = 1 ]; then
   echo "Installing Magento 2 sample data..."
   /usr/local/bin/php ./bin/magento sampledata:deploy
   M2SETUP_USE_SAMPLE_DATA_STRING="--use-sample-data"
@@ -49,17 +49,32 @@ fi
 echo "Running Magento 2 setup script..."
 # shellcheck disable=SC2086
 /usr/local/bin/php ./bin/magento setup:install \
+  --base-url=${M2SETUP_BASE_URL} \
+  --backend-frontname=${M2SETUP_BACKEND_FRONTNAME} \
+  --search-engine=${M2SETUP_SEARCH_ENGINE} \
+  \
   --db-host=${M2SETUP_DB_HOST} \
   --db-name=${M2SETUP_DB_NAME} \
-  --db-user=${M2SETUP_DB_USER} \
+  --db-user=${M2SETUP_DB_USERNAME} \
   --db-password=${M2SETUP_DB_PASSWORD} \
-  --base-url=${M2SETUP_BASE_URL} \
+  \
+  --elasticsearch-host=${M2SETUP_ES_HOST} \
+  --elasticsearch-port=${M2SETUP_ES_PORT} \
+  --elasticsearch-enable-auth=${M2SETUP_ES_ENABLE_AUTH} \
+  --elasticsearch-username=${M2SETUP_ES_USERNAME} \
+  --elasticsearch-password=${M2SETUP_ES_PASSWORD} \
+  --elasticsearch-index-prefix=${M2SETUP_ES_INDEX_PREFIX} \
+  --elasticsearch-timeout=${M2SETUP_ES_TIMEOUT} \
+  \
+  --admin-user=${M2SETUP_ADMIN_USERNAME} \
+  --admin-password=${M2SETUP_ADMIN_PASSWORD} \
   --admin-firstname=${M2SETUP_ADMIN_FIRSTNAME} \
   --admin-lastname=${M2SETUP_ADMIN_LASTNAME} \
   --admin-email=${M2SETUP_ADMIN_EMAIL} \
-  --admin-user=${M2SETUP_ADMIN_USER} \
-  --admin-password=${M2SETUP_ADMIN_PASSWORD} \
-  --backend-frontname=${M2SETUP_BACKEND_FRONTNAME} \
+  \
+  --enable-modules=${M2SETUP_ENABLE_MODULES} \
+  --disable-modules=${M2SETUP_DISABLE_MODULES} \
+  \
   ${M2SETUP_USE_SAMPLE_DATA_STRING}
 
 echo "The setup script has completed execution."
