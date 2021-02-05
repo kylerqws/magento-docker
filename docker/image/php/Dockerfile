@@ -13,7 +13,6 @@ RUN apt-get update && apt-get -y install \
 
 RUN docker-php-ext-install \
     bcmath \
-    gd \
     intl \
     mbstring \
     pdo_mysql \
@@ -22,9 +21,8 @@ RUN docker-php-ext-install \
     zip \
     sockets
 
-RUN docker-php-ext-configure gd \
-    --with-freetype=/usr/lib64 \
-    --with-jpeg=/usr/lib
+RUN docker-php-ext-configure gd --with-freetype=/usr/lib64 --with-jpeg=/usr/lib && \
+    docker-php-ext-install gd && docker-php-ext-enable gd
 
 RUN pecl channel-update pecl.php.net && \
     pecl install mcrypt
