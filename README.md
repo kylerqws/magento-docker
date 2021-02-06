@@ -39,7 +39,7 @@ docker-compose up -d --build app
 
 ```
 127.0.0.1 magento.loc
-127.0.0.1 mailcatcher.loc:1080
+127.0.0.1 mailcatcher.loc
 ```
 
 8. Open the browser and type the next link: http://magento.loc/.
