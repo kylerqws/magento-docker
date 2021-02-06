@@ -20,7 +20,7 @@ case "$1" in
     $0 -r && cd /var/www &> /dev/null || exit 1 && sudo ln -s "$PROJECT_DIR" html && cd - &> /dev/null || exit 1
   ;;
   -r|--remove)
-    if [ -s /var/www/html ]; then sudo rm /var/www/html; fi
+    if [ -h /var/www/html ]; then sudo rm /var/www/html; fi
   ;;
   *)
     printf "error: Not specified(s) required parameter(s)\n%s\n" "$HELP" && exit 1
