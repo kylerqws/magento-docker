@@ -91,7 +91,7 @@ services:
 
 networks:
   default:
-    name: magento
+    name: ${COMPOSE_PROJECT_NAME}-default
     driver: bridge
     ipam:
       config:
