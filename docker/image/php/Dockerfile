@@ -19,6 +19,7 @@ RUN docker-php-ext-install \
     soap \
     xsl \
     zip \
+    pcntl \
     sockets
 
 RUN docker-php-ext-configure gd --with-freetype=/usr/lib64 --with-jpeg=/usr/lib && \
