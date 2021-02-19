@@ -29,7 +29,7 @@ RUN pecl channel-update pecl.php.net && \
     pecl install mcrypt
 
 # install kafka
-RUN apt-get update && apt-get -y install git && \
+RUN apt-get update && apt-get -y install git openssl libssl-dev && \
     git clone --branch v1.4.0 --depth 1 https://github.com/edenhill/librdkafka.git /tmp/librdkafka && \
     cd /tmp/librdkafka && ./configure && make && make install && \
     pecl install -o -f rdkafka-4.0.0 && docker-php-ext-enable rdkafka
