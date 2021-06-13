@@ -14,15 +14,15 @@ if [ "$1" = -h ] || [ "$1" = --help ]; then
 fi
 
 case "$1" in
-  -c|--create)
-    if [ ! -d /var/www ]; then sudo mkdir /var/www; fi
-    PROJECT_DIR="$(readlink --canonicalize "$(dirname "$0")/../html")"
-    $0 -r && cd /var/www &> /dev/null || exit 1 && sudo ln -s "$PROJECT_DIR" html && cd - &> /dev/null || exit 1
+-c | --create)
+  if [ ! -d /var/www ]; then sudo mkdir /var/www; fi
+  PROJECT_DIR="$(readlink --canonicalize "$(dirname "$0")/../html")"
+  $0 -r && cd /var/www &>/dev/null || exit 1 && sudo ln -s "$PROJECT_DIR" html && cd - &>/dev/null || exit 1
   ;;
-  -r|--remove)
-    if [ -h /var/www/html ]; then sudo rm /var/www/html; fi
+-r | --remove)
+  if [ -h /var/www/html ]; then sudo rm /var/www/html; fi
   ;;
-  *)
-    printf "error: Not specified(s) required parameter(s)\n%s\n" "$HELP" && exit 1
+*)
+  printf "error: Not specified(s) required parameter(s)\n%s\n" "$HELP" && exit 1
   ;;
 esac
