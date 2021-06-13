@@ -52,12 +52,10 @@ echo "Running Magento 2 setup script..."
   --base-url=${M2SETUP_BASE_URL} \
   --backend-frontname=${M2SETUP_BACKEND_FRONTNAME} \
   --search-engine=${M2SETUP_SEARCH_ENGINE} \
-  \
   --db-host=${M2SETUP_DB_HOST} \
   --db-name=${M2SETUP_DB_NAME} \
   --db-user=${M2SETUP_DB_USERNAME} \
   --db-password=${M2SETUP_DB_PASSWORD} \
-  \
   --elasticsearch-host=${M2SETUP_ES_HOST} \
   --elasticsearch-port=${M2SETUP_ES_PORT} \
   --elasticsearch-enable-auth=${M2SETUP_ES_ENABLE_AUTH} \
@@ -65,13 +63,11 @@ echo "Running Magento 2 setup script..."
   --elasticsearch-password=${M2SETUP_ES_PASSWORD} \
   --elasticsearch-index-prefix=${M2SETUP_ES_INDEX_PREFIX} \
   --elasticsearch-timeout=${M2SETUP_ES_TIMEOUT} \
-  \
   --admin-user=${M2SETUP_ADMIN_USERNAME} \
   --admin-password=${M2SETUP_ADMIN_PASSWORD} \
   --admin-firstname=${M2SETUP_ADMIN_FIRSTNAME} \
   --admin-lastname=${M2SETUP_ADMIN_LASTNAME} \
   --admin-email=${M2SETUP_ADMIN_EMAIL} \
-  \
   ${M2SETUP_USE_SAMPLE_DATA_STRING}
 
 echo "The setup script has completed execution."
