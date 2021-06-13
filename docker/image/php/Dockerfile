@@ -19,7 +19,6 @@ RUN docker-php-ext-install \
     soap \
     xsl \
     zip \
-    pcntl \
     sockets
 
 RUN docker-php-ext-configure gd --with-freetype=/usr/lib64 --with-jpeg=/usr/lib && \
@@ -27,12 +26,6 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/lib64 --with-jpeg=/usr/lib 
 
 RUN pecl channel-update pecl.php.net && \
     pecl install mcrypt
-
-# install kafka
-RUN apt-get update && apt-get -y install git openssl libssl-dev && \
-    git clone --branch v1.4.0 --depth 1 https://github.com/edenhill/librdkafka.git /tmp/librdkafka && \
-    cd /tmp/librdkafka && ./configure && make && make install && \
-    pecl install -o -f rdkafka-4.0.0 && docker-php-ext-enable rdkafka
 
 # install xdebug
 RUN pecl install -o -f xdebug-2.9.8 && docker-php-ext-enable xdebug
